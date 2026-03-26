@@ -1,0 +1,134 @@
+/* ProfilePage.module.css */
+
+.page { padding: 3rem 0; }
+
+.pageHeader {
+  margin-bottom: 2rem;
+}
+
+.subtitle {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  margin-top: 0.4rem;
+}
+
+.loadingWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 5rem;
+  color: var(--text-muted);
+}
+
+/* ── Two-column layout ───────────────────────────────────── */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.leftCol, .rightCol {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+/* ── Card sections ───────────────────────────────────────── */
+.section { }
+
+.sectionTitle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+  font-size: 1rem;
+  color: var(--text-primary);
+}
+
+.sectionHint {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-bottom: 1.25rem;
+  font-style: italic;
+  line-height: 1.5;
+}
+
+/* ── Vibe Scores Display ─────────────────────────────────── */
+.scoresDisplay {
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--border);
+}
+
+.scoresTitle {
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+}
+
+.meterRow {
+  margin-bottom: 0.85rem;
+}
+
+.meterLabels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-bottom: 0.3rem;
+}
+
+.meterBar {
+  position: relative;
+  height: 6px;
+  background: var(--brand-blue-lt);
+  border-radius: 3px;
+}
+
+.meterFill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  background: linear-gradient(90deg, var(--brand-blue), var(--accent));
+  border-radius: 3px;
+  transition: width 0.5s ease;
+}
+
+.meterThumb {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 2px solid var(--bg-card);
+  box-shadow: var(--shadow-sm);
+  transition: left 0.5s ease;
+}
+
+/* ── Preference sliders ──────────────────────────────────── */
+.sliderLabelRow {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-bottom: 0.35rem;
+}
+
+/* ── Danger Zone ─────────────────────────────────────────── */
+.dangerZone {
+  border-color: var(--error-bg) !important;
+  background: var(--error-bg) !important;
+}
+
+/* ── Responsive ──────────────────────────────────────────── */
+@media (max-width: 800px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

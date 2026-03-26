@@ -1,0 +1,23 @@
+# render.yaml — Render.com deployment config for FastAPI backend
+# Place this in the root of your repo.
+# See: https://render.com/docs/blueprint-spec
+
+services:
+  - type: web
+    name: logement-ig-api
+    runtime: python
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: FIREBASE_SERVICE_ACCOUNT_PATH
+        value: ./firebase-service-account.json  # Upload this file separately
+      - key: ALLOWED_ORIGINS
+        value: https://YOUR-PROJECT.web.app,http://localhost:5173
+      - key: APP_ENV
+        value: production
+    # Disk for HuggingFace model cache — prevents re-downloading on restart
+    disk:
+      name: hf-model-cache
+      mountPath: /root/.cache/huggingface
+      sizeGB: 5

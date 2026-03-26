@@ -1,0 +1,17 @@
+/* AboutPage.module.css */
+.page { padding: 4rem 0; max-width: 760px; }
+.hero { margin-bottom: 2.5rem; }
+.hero h1 { margin-bottom: 1.25rem; }
+.mission { font-size: 1.1rem; line-height: 1.8; color: var(--text-secondary); }
+.divider { height: 1px; background: var(--border); margin: 2.5rem 0; }
+.valuesTitle { margin-bottom: 1.5rem; }
+.valuesGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+.valueCard { display: flex; align-items: flex-start; gap: 1rem; }
+.valueIcon { color: var(--accent); flex-shrink: 0; margin-top: 2px; }
+@media (max-width: 600px) {
+  .valuesGrid { grid-template-columns: 1fr; }
+}
