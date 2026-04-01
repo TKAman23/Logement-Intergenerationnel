@@ -7,6 +7,7 @@ dependencies:
   - pip
   - pip:
     - fastapi==0.111.0
+    - regex
     - "uvicorn[standard]==0.29.0"
     - transformers==4.41.0
     # - torch==2.6.0 --index-url https://download.pytorch.org/whl/cu124

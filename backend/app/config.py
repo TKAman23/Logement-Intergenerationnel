@@ -7,8 +7,7 @@ Reads environment variables from .env file automatically.
 All settings are type-validated by Pydantic.
 """
 
-from pydantic_settings import BaseSettings
-from typing import List
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
@@ -20,25 +19,19 @@ class Settings(BaseSettings):
     # Firebase service account JSON file path
     firebase_service_account_path: str = "./firebase-service-account.json"
 
-    # CORS: comma-separated origins string → parsed into list
-    allowed_origins_str: str = "http://localhost:5173"
-
-    @property
-    def allowed_origins(self) -> List[str]:
-        """Parse comma-separated origins string into a Python list."""
-        return [o.strip() for o in self.allowed_origins_str.split(",")]
+    # CORS: list
+    allowed_origins: list[str] = ["http://localhost:5173"]  # Default for local development
 
     # App environment
     app_env: str = "development"
     log_level: str = "info"
 
-    class Config:
-        env_file = ".env"
-        env_file_encoding = "utf-8"
-        # Map .env key ALLOWED_ORIGINS → allowed_origins_str
-        fields = {
-            "allowed_origins_str": {"env": "ALLOWED_ORIGINS"}
-        }
+    model_config = SettingsConfigDict(
+        env_file=".env",
+        env_file_encoding="utf-8",
+        extra="ignore",  # Ignore extra env vars that are not defined in this model
+        # env_nested_delimiter="__", # Uncomment if you want to support nested env vars like DATABASE__HOST=localhost
+    )
 
 
 # ── Singleton settings instance ─────────────────────────────

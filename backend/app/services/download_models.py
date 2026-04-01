@@ -11,7 +11,8 @@ Usage:
     python app/services/download_models.py
 """
 
-from transformers import pipeline
+from transformers.pipelines import pipeline
+from typing import cast, Literal, Any
 
 MODELS = [
     {
@@ -30,8 +31,8 @@ if __name__ == "__main__":
     print("📥 Downloading HuggingFace models to local cache...\n")
     for m in MODELS:
         print(f"  ⬇ {m['model']} — {m['desc']}")
-        pipe = pipeline(m["task"], model=m["model"], top_k=None)
+        pipe = pipeline(cast(Literal["text-classification"], m["task"]), model=m["model"], top_k=None)
         # Run a test inference to verify
-        result = pipe("I love spending time with family and friends.", truncation=True)
+        result: Any = pipe("I love spending time with family and friends.", truncation=True)
         print(f"    ✓ Loaded. Sample output: {result[0][0]}\n")
     print("✅ All models downloaded and cached.")

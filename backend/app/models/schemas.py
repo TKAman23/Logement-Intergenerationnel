@@ -56,19 +56,21 @@ class UserProfile(BaseModel):
     # Basic info
     display_name: str = ""
     bio: str = ""
-    role: Literal["elder", "youth", "either"] = "either"
-    location: Literal["urban", "suburban", "rural"] = "urban"
+    role: Literal["elder", "youth"] = "youth"   # No more "either"
+    location: str = ""                           # Free-text city/address (was Literal enum)
     languages: List[str] = []
     interests: List[str] = []
 
     # Housing / financial
-    rent_offer: Optional[float] = None    # Elders: monthly rent charged (CAD/EUR)
-    rent_budget: Optional[float] = None   # Youth: max monthly rent (CAD/EUR)
+    rent_offer: Optional[float] = None    # Elders: monthly rent charged
+    rent_budget: Optional[float] = None   # Youth: max monthly rent
 
     # Lifestyle filters
     pets: bool = False
-    smoking: bool = False
-    commitment_hours: int = Field(5, ge=0, le=168)  # Hours/week of shared activities
+    smoker: bool = False        # "I smoke"
+    smoking_ok: bool = False    # "I am OK with others smoking"
+    smoking: bool = False       # Legacy combined field (smoker OR smoking_ok)
+    commitment_hours: int = Field(5, ge=0, le=168)
 
     # Free-text answers → used to compute vibe_scores
     lifestyle_answers: LifestyleAnswers = LifestyleAnswers()
