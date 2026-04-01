@@ -1,0 +1,31 @@
+# ── Node / Frontend ─────────────────────────────────────────
+node_modules/
+dist/
+.env.local
+.env*.local
+*.log
+
+# ── Python / Backend ─────────────────────────────────────────
+__pycache__/
+*.pyc
+*.pyo
+venv/
+.venv/
+.env
+*.egg-info/
+
+# ── Firebase ──────────────────────────────────────────────────
+# NEVER commit your Firebase service account key!
+firebase-service-account.json
+.firebase/
+.firebaserc
+
+# ── HuggingFace models (large, download at runtime) ──────────
+backend/models/
+.cache/
+
+# ── OS / Editor ───────────────────────────────────────────────
+.DS_Store
+.idea/
+.vscode/
+*.swp
