@@ -62,7 +62,11 @@ export default function MatchSearchPage() {
   // ── Apply client-side filters ────────────────────────────
   const filtered = useMemo(() => {
     return matches.filter(m => {
-      if (filterLocation !== 'all' && m.location !== filterLocation) return false
+      // Location: case-insensitive substring search on free-text field
+      if (filterLocation !== 'all' && filterLocation !== '') {
+        const loc = (m.location || '').toLowerCase()
+        if (!loc.includes(filterLocation.toLowerCase())) return false
+      }
       if (filterMaxRent) {
         const rent = m.rent_offer ?? m.rent_budget ?? 0
         if (rent > parseFloat(filterMaxRent)) return false
@@ -123,7 +127,7 @@ export default function MatchSearchPage() {
         </div>
         <div className={styles.headerMeta}>
           <span className="badge badge-blue">
-            {filtered.length} résultats
+            {t('matching.results', { count: filtered.length })}
           </span>
           <button
             className={`btn btn-secondary ${styles.filterToggle}`}
@@ -145,12 +149,12 @@ export default function MatchSearchPage() {
           <div className={styles.filterGrid}>
             <div className="form-group" style={{ margin: 0 }}>
               <label><MapPin size={12}/> {t('matching.filterLocation')}</label>
-              <select value={filterLocation} onChange={e => setFilterLocation(e.target.value)}>
-                <option value="all">{t('matching.filterAll')}</option>
-                <option value="urban">{t('profile.locationUrban')}</option>
-                <option value="suburban">{t('profile.locationSuburban')}</option>
-                <option value="rural">{t('profile.locationRural')}</option>
-              </select>
+              <input
+                type="text"
+                placeholder={t('matching.filterLocationPlaceholder')}
+                value={filterLocation === 'all' ? '' : filterLocation}
+                onChange={e => setFilterLocation(e.target.value || 'all')}
+              />
             </div>
             <div className="form-group" style={{ margin: 0 }}>
               <label><DollarSign size={12}/> {t('matching.filterRent')} ($)</label>

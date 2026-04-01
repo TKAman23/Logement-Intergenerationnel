@@ -46,6 +46,11 @@
       "b3Desc": "Youth offer tech help, errands, or companionship hours. Elders share wisdom and stability.",
       "b4Title": "Community",
       "b4Desc": "Building bridges between generations, one home at a time."
+    },
+    "cta": {
+      "title": "Ready to find your match?",
+      "subtitle": "Join hundreds of households already living better, together.",
+      "btn": "Get Started — It's Free"
     }
   },
   "about": {
@@ -92,17 +97,11 @@
     "role": "I am a...",
     "roleElder": "Elder (host)",
     "roleYouth": "Young Person (seeking housing)",
-    "roleEither": "Either / Flexible",
-    "location": "Preferred Location",
-    "locationUrban": "Urban",
-    "locationSuburban": "Suburban",
-    "locationRural": "Rural",
     "housing": "Housing & Finances",
     "rentOffer": "Monthly Rent Offered (elders)",
     "rentBudget": "Monthly Rent Budget (youth)",
     "lifestyle": "Lifestyle",
     "pets": "I have or welcome pets",
-    "smoking": "I smoke or am OK with smoking",
     "commitmentHours": "Shared activity hours per week",
     "interests": "Interests (comma-separated)",
     "languages": "Languages Spoken (comma-separated)",
@@ -125,7 +124,16 @@
     "saveSuccess": "Profile saved!",
     "deleteAccount": "Delete Account",
     "deleteConfirm": "Are you sure? This cannot be undone.",
-    "changePhoto": "Change Photo"
+    "smoker": "I smoke",
+    "smokingOk": "I'm OK with others smoking",
+    "locationElder": "Your address / neighbourhood",
+    "locationElderHint": "Elders: enter your actual location so young people nearby can find you.",
+    "locationYouth": "Preferred area or city",
+    "locationYouthHint": "Youth: enter your preferred area. Elders near this location will rank higher.",
+    "interestsPlaceholder": "Type an interest and press Enter...",
+    "languagesPlaceholder": "Type a language and press Enter...",
+    "tagHint": "Press Enter or comma to add. Backspace to remove last.",
+    "personalityProfile": "Your Personality Profile"
   },
   "vibe": {
     "introvert": "Introvert",
@@ -156,6 +164,7 @@
     "requestSent": "Request Sent",
     "connected": "Connected",
     "filterLocation": "Location",
+    "filterLocationPlaceholder": "Enter a location...",
     "filterAll": "All",
     "filterRent": "Max Rent",
     "filtersTitle": "Filters",
@@ -167,7 +176,8 @@
     "pets": "Pets OK",
     "smoking": "Smoking OK",
     "sendMessage": "Add a message (optional)",
-    "requestConfirm": "Send connection request?"
+    "requestConfirm": "Send connection request?",
+    "results": "{{count}} results"
   },
   "errors": {
     "generic": "Something went wrong. Please try again.",

@@ -7,7 +7,7 @@ Given a requester's profile and a pool of candidate profiles,
 computes a match score for each candidate and returns the top N.
 
 Match Score Formula (lower = better match):
-  score = Σ |seeker_vibe[i] - candidate_vibe[i]| × vibe_weight[i]
+  score = Σ |seeker_vibe[i] - candidate_vibe[i]| * vibe_weight[i]
          + rent_penalty
          + location_penalty
          + lifestyle_penalty (pets, smoking)
@@ -17,8 +17,8 @@ Match Score Formula (lower = better match):
 Final result is sorted ascending by score.
 """
 
-from typing import List, Dict, Any, Optional
-from app.models.schemas import MatchResult, VibeScores
+from typing import List, Dict, Any
+from app.models.schemas import MatchResult
 
 
 # ── Dimension Weights ────────────────────────────────────────
@@ -38,9 +38,6 @@ VIBE_WEIGHTS: Dict[str, float] = {
 
 # Maximum rent penalty contribution (normalized)
 RENT_WEIGHT = 0.5
-
-# Fixed penalty for location mismatch (e.g., urban vs rural)
-LOCATION_PENALTY = 0.8
 
 # Bonus per shared interest
 INTEREST_BONUS_PER = 0.05
@@ -94,13 +91,12 @@ def compute_match_score(
     rent_penalty = _compute_rent_penalty(seeker, candidate, seeker_role, candidate_role)
     breakdown["rent_penalty"] = round(rent_penalty, 4)
 
-    # ── 3. Location Penalty ──────────────────────────────────
-    # Apply a flat penalty if locations don't match.
-    location_penalty = 0.0
-    if seeker.get("location") and candidate.get("location"):
-        if seeker["location"] != candidate["location"]:
-            location_penalty = LOCATION_PENALTY
-    breakdown["location_penalty"] = round(location_penalty, 4)
+    # ── 3. Location Bonus ────────────────────────────────────
+    # The router pre-computed a _location_bonus based on free-text
+    # word overlap between seeker and candidate locations.
+    # A higher overlap = lower score = better match position.
+    location_penalty = -candidate.get("_location_bonus", 0.0)
+    breakdown["location_score"] = round(location_penalty, 4)
 
     # ── 4. Lifestyle Penalties ───────────────────────────────
     lifestyle_penalty = 0.0

@@ -9,6 +9,7 @@ Provides helper to get the Firestore db client.
 
 import firebase_admin
 from firebase_admin import credentials, firestore
+from google.cloud.firestore import Client
 from app.config import settings
 
 # Module-level db client (set after initialization)
@@ -32,7 +33,7 @@ def initialize_firebase():
     return _db
 
 
-def get_db() -> firestore.Client:
+def get_db() -> Client:
     """
     Return the Firestore client.
     Call initialize_firebase() on startup before using this.

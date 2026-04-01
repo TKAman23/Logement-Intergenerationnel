@@ -230,14 +230,14 @@ class VibeScorer:
         """
         results = self.emotion_pipe(text[:512])  # Truncate to model max
         # pipeline returns: [[{"label": "joy", "score": 0.9}, ...]]
-        return {r["label"].lower(): r["score"] for r in results[0]}
+        return {str(r["label"].lower()): float(r["score"]) for r in results[0]}
 
     def _run_sentiment(self, text: str) -> Dict[str, float]:
         """
         Run sentiment pipeline and return {positive/negative/neutral: score}.
         """
         results = self.sentiment_pipe(text[:512])
-        return {r["label"].lower(): r["score"] for r in results[0]}
+        return {str(r["label"].lower()): float(r["score"]) for r in results[0]}
 
     def _lexicon_score(self, text: str, dimension: str) -> float:
         """

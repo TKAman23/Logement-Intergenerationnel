@@ -13,11 +13,12 @@ Endpoints:
   GET   /api/connections/accepted        — List accepted connections (with contact info)
 """
 
+from inspect import isawaitable
 from fastapi import APIRouter, Depends, HTTPException
 from app.models.schemas import ConnectionRequest, ConnectionResponse, ConnectionRecord
 from app.utils.auth import get_current_user
 from app.utils.firebase_admin import get_db
-from firebase_admin import auth, firestore
+from google.cloud import firestore
 from typing import List
 import uuid
 
@@ -79,11 +80,15 @@ async def respond_to_connection(
     db = get_db()
     ref = db.collection("connections").document(connection_id)
     doc = ref.get()
+    doc = await doc if isawaitable(doc) else doc  # Handle both sync and async Firestore clients
 
     if not doc.exists:
         raise HTTPException(status_code=404, detail="Connection not found.")
 
     conn = doc.to_dict()
+
+    if conn is None:
+        raise HTTPException(status_code=404, detail="Connection data is empty.")
 
     # Authorization: only the recipient can respond
     if conn["to_uid"] != current_uid:
@@ -122,8 +127,13 @@ async def get_pending_requests(current_uid: str = Depends(get_current_user)):
     results = []
     for doc in docs:
         conn = doc.to_dict()
+        
+        if conn is None:
+            continue
+        
         # Fetch sender's display name
         sender_doc = db.collection("users").document(conn["from_uid"]).get()
+        sender_doc = await sender_doc if isawaitable(sender_doc) else sender_doc
         sender_data = sender_doc.to_dict() if sender_doc.exists else {}
 
         results.append(ConnectionRecord(
@@ -133,7 +143,7 @@ async def get_pending_requests(current_uid: str = Depends(get_current_user)):
             status=conn["status"],
             message=conn.get("message", ""),
             created_at=conn.get("createdAt"),
-            from_email=sender_data.get("email"),
+            from_email=(sender_data or {}).get("email"),
         ))
 
     return results
@@ -162,9 +172,14 @@ async def get_accepted_connections(current_uid: str = Depends(get_current_user))
     results = []
     for doc in list(sent) + list(received):
         conn = doc.to_dict()
+        
+        if conn is None:
+            continue
+        
         other_uid = conn["to_uid"] if conn["from_uid"] == current_uid else conn["from_uid"]
 
         other_doc = db.collection("users").document(other_uid).get()
+        other_doc = await other_doc if isawaitable(other_doc) else other_doc
         other_data = other_doc.to_dict() if other_doc.exists else {}
 
         results.append(ConnectionRecord(
@@ -174,8 +189,8 @@ async def get_accepted_connections(current_uid: str = Depends(get_current_user))
             status="accepted",
             message=conn.get("message", ""),
             created_at=conn.get("createdAt"),
-            to_email=other_data.get("email"),
-            from_email=other_data.get("email"),
+            to_email=(other_data or {}).get("email"),
+            from_email=(other_data or {}).get("email"),
         ))
 
     return results

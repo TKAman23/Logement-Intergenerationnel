@@ -46,6 +46,11 @@
       "b3Desc": "Les jeunes offrent aide technologique et courses ; les aînés partagent sagesse et stabilité.",
       "b4Title": "Communauté",
       "b4Desc": "Tisser des liens entre générations, un foyer à la fois."
+    },
+    "cta": {
+      "title": "Prêt(e) à trouver votre correspondance?",
+      "subtitle": "Rejoignez des centaines de foyers qui vivent déjà mieux, ensemble.",
+      "btn": "Commencer — C'est gratuit"
     }
   },
   "about": {
@@ -92,17 +97,11 @@
     "role": "Je suis...",
     "roleElder": "Aîné(e) (hôte)",
     "roleYouth": "Jeune (cherche logement)",
-    "roleEither": "L'un ou l'autre / Flexible",
-    "location": "Lieu Préféré",
-    "locationUrban": "Urbain",
-    "locationSuburban": "Suburbain",
-    "locationRural": "Rural",
     "housing": "Logement et Finances",
     "rentOffer": "Loyer mensuel offert (aînés)",
     "rentBudget": "Budget loyer mensuel (jeunes)",
     "lifestyle": "Style de Vie",
     "pets": "J'ai ou j'accepte des animaux",
-    "smoking": "Je fume ou c'est acceptable",
     "commitmentHours": "Heures d'activités partagées par semaine",
     "interests": "Centres d'intérêt (séparés par virgule)",
     "languages": "Langues parlées (séparées par virgule)",
@@ -125,7 +124,16 @@
     "saveSuccess": "Profil sauvegardé!",
     "deleteAccount": "Supprimer le Compte",
     "deleteConfirm": "Êtes-vous sûr? Cette action est irréversible.",
-    "changePhoto": "Changer la Photo"
+    "smoker": "Je fume",
+    "smokingOk": "Je tolère que les autres fument",
+    "locationElder": "Votre adresse / quartier",
+    "locationElderHint": "Aînés : entrez votre emplacement réel pour que les jeunes près de vous puissent vous trouver.",
+    "locationYouth": "Zone ou ville préférée",
+    "locationYouthHint": "Jeunes : entrez votre zone préférée. Les aînés proches seront mieux classés.",
+    "interestsPlaceholder": "Tapez un intérêt et appuyez sur Entrée...",
+    "languagesPlaceholder": "Tapez une langue et appuyez sur Entrée...",
+    "tagHint": "Entrée ou virgule pour ajouter. Retour arrière pour supprimer le dernier.",
+    "personalityProfile": "Votre Profil de Personnalité"
   },
   "vibe": {
     "introvert": "Introverti",
@@ -156,6 +164,7 @@
     "requestSent": "Demande Envoyée",
     "connected": "Connecté",
     "filterLocation": "Lieu",
+    "filterLocationPlaceholder": "Entrez un lieu...",
     "filterAll": "Tous",
     "filterRent": "Loyer Max",
     "filtersTitle": "Filtres",
@@ -167,7 +176,8 @@
     "pets": "Animaux OK",
     "smoking": "Tabac OK",
     "sendMessage": "Ajouter un message (optionnel)",
-    "requestConfirm": "Envoyer la demande de connexion?"
+    "requestConfirm": "Envoyer la demande de connexion?",
+    "results": "{{count}} résultats"
   },
   "errors": {
     "generic": "Une erreur est survenue. Veuillez réessayer.",

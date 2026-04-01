@@ -10,6 +10,7 @@ Endpoints:
   DELETE /api/profiles/{uid}       — Delete profile (account teardown)
 """
 
+from inspect import isawaitable
 from fastapi import APIRouter, Depends, HTTPException
 from app.models.schemas import UserProfile, ProfileUpdateRequest, ScoreRequest, VibeScores
 from app.utils.auth import get_current_user
@@ -27,13 +28,14 @@ async def get_profile(uid: str, current_uid: str = Depends(get_current_user)):
     """
     db = get_db()
     doc = db.collection("users").document(uid).get()
+    doc = await doc if isawaitable(doc) else doc  # Handle both sync and async Firestore clients
 
     if not doc.exists:
         raise HTTPException(status_code=404, detail="Profile not found.")
 
     data = doc.to_dict()
     # Return only the profile sub-document
-    return data.get("profile", {})
+    return data.get("profile", {}) if data else {}
 
 
 @router.patch("/{uid}", response_model=dict)

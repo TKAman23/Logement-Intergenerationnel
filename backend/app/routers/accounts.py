@@ -11,6 +11,7 @@ Endpoints:
   DELETE /api/accounts/me      — Delete account + profile data
 """
 
+from inspect import isawaitable
 from fastapi import APIRouter, Depends, HTTPException
 from firebase_admin import auth
 from app.utils.auth import get_current_user
@@ -29,6 +30,7 @@ async def init_account(current_uid: str = Depends(get_current_user)):
     db = get_db()
     ref = db.collection("users").document(current_uid)
     doc = ref.get()
+    doc = await doc if isawaitable(doc) else doc  # Handle both sync and async Firestore clients
 
     if not doc.exists:
         # Get display name + email from Firebase Auth

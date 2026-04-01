@@ -155,10 +155,10 @@ export default function HomePage() {
         <section className={styles.bottomCTA}>
           <div className="container">
             <div className={styles.ctaBox}>
-              <h2>Ready to find your match?</h2>
-              <p>Join hundreds of households already living better, together.</p>
+              <h2>{t('home.cta.title')}</h2>
+              <p>{t('home.cta.subtitle')}</p>
               <Link to="/signup" className="btn btn-primary" style={{ marginTop: '1rem', fontSize: '1rem' }}>
-                Get Started — It's Free <ArrowRight size={16}/>
+                {t('home.cta.btn')} <ArrowRight size={16}/>
               </Link>
             </div>
           </div>
